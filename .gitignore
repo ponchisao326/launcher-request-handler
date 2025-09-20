@@ -1,2 +1,5 @@
 /.idea
 /target
+
+# Is a lib so main binary is just for debugging
+/src/main.rs
