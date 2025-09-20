@@ -1,4 +1,5 @@
 use std::fs::File;
+use std::io::copy;
 use reqwest::blocking;
 use serde::Deserialize;
 
@@ -16,7 +17,7 @@ impl Downloader {
         let response = blocking::get(url)?;
         let mut file = File::create(destino)?;
         let content = response.bytes()?;
-        std::io::copy(&mut content.as_ref(), &mut file)?;
+        copy(&mut content.as_ref(), &mut file)?;
         Ok(())
     }
 }
