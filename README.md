@@ -12,7 +12,7 @@ This Rust library is designed to facilitate version checking, file downloading, 
 ## Example Usage
 
 ```rust
-use my_library::{Downloader, Update};
+use launcher-request-handler::{Downloader, Update};
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     // Check for a new version
