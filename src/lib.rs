@@ -1,5 +1,6 @@
-use std::fs::File;
+use std::fs::{create_dir_all, File};
 use std::io::copy;
+use std::path::Path;
 use reqwest::blocking;
 use serde::de::DeserializeOwned;
 use serde::Deserialize;
@@ -40,12 +41,21 @@ impl Update {
 
 impl Downloader {
     /// Download a ZIP file from a given URL and save it to the specified destination.
-    pub fn download_zip(url: &str, destino: &str) -> Result<(), Box<dyn std::error::Error>> {
+    pub fn download_zip(url: &str, destination: &str) -> Result<(), Box<dyn std::error::Error>> {
+        if Self::folder_exists(Path::new(destination).parent().unwrap().to_str().unwrap()) == false {
+            create_dir_all(Path::new(destination).parent().unwrap())?;
+        }
+
         let response = blocking::get(url)?;
-        let mut file = File::create(destino)?;
+        let mut file = File::create(destination)?;
         let content = response.bytes()?;
         copy(&mut content.as_ref(), &mut file)?;
         Ok(())
+    }
+
+    /// Check if the folder exists in the local path.
+    pub fn folder_exists(path: &str) -> bool {
+        Path::new(path).is_dir()
     }
 }
 
