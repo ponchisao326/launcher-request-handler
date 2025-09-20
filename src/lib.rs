@@ -1,9 +1,6 @@
-use std::fs::{create_dir_all, File};
-use std::io::copy;
-use std::path::Path;
+use std::{io::copy, path::Path, fs::{create_dir_all, File}};
 use reqwest::blocking;
-use serde::de::DeserializeOwned;
-use serde::Deserialize;
+use serde::{de::DeserializeOwned, Deserialize};
 
 pub struct Downloader;
 pub struct JsonGrabber;
