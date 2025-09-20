@@ -18,3 +18,12 @@ impl Downloader {
         Ok(())
     }
 }
+
+impl JsonGrabber {
+    /// Download a JSON file from a given URL and parse it into a Response struct.
+    pub fn verify_json(url: &str) -> Result<Version, Box<dyn std::error::Error>> {
+        let response = reqwest::blocking::get(url)?;
+        let json: Version = response.json()?;
+        Ok(json)
+    }
+}
